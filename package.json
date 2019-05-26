@@ -7,7 +7,11 @@
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
   },
+  "main": "electron-starter.js",
+  "homepage": "./",
   "scripts": {
+    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "electron": "electron .",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -27,5 +31,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^5.0.2",
+    "foreman": "^3.0.1"
   }
 }
