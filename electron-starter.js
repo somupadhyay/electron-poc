@@ -4,8 +4,8 @@ const path = require('path');
 
 const { app, BrowserWindow, Menu, Tray } = electron;
 
-const ipc = electron.ipcMain;
-
+const ipcMain = electron.ipcMain;
+let imgPath = process.env.DEV ? "assets/favicon.ico" : path.join(process.resourcesPath, "favicon.ico");
 
 let mainWindow;
 let tray;
@@ -35,18 +35,18 @@ function createWindow() {
         width: 800,
         height: 600,
         title: "ReD",
-        icon: "./public/favicon.ico"
+        icon: imgPath
     });
-    
-    tray = new Tray('./public/favicon.ico');
-    const startUrl = process.env.ELECTRON_START_URL || url.format({
+
+    tray = new Tray(imgPath);
+    const startUrl = process.env.DEV || url.format({
         pathname: path.join(__dirname, './build/index.html'),
         protocol: 'file:',
         slashes: true
     });
     mainWindow.loadURL(startUrl);
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
@@ -131,3 +131,8 @@ const contextMenuTemplate = [
         app.quit();
     } }
 ]; 
+
+//IPC communication.
+ipcMain.on("AUTO_DOWNLOAD", (event,arg) =>{
+    console.log("here 001",arg);
+});

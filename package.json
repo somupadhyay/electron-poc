@@ -10,12 +10,42 @@
   "main": "electron-starter.js",
   "homepage": "./",
   "scripts": {
-    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "electron-dev": "set DEV=http://localhost:3000 && electron .",
     "electron": "electron .",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "electron-builder install-app-deps",
+    "preelectron-pack": "react-scripts build",
+    "electron-pack": "electron-builder build -w"
+  },
+  "build": {
+    "appId": "com.redv1",
+    "productName": "ReD",
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "directories": {
+      "buildResources": "assets"
+    },
+    "files": [
+      "public/favicon.*",
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json",
+      "electron-starter.js"
+    ],
+    "extraFiles": [
+      {
+          "from": "assets",
+          "to": "resources",
+          "filter": [
+              "**/*"
+          ]
+      }
+    ],
+    "extends": null
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,6 +64,8 @@
   },
   "devDependencies": {
     "electron": "^5.0.2",
-    "foreman": "^3.0.1"
+    "electron-builder": "^20.44.4",
+    "foreman": "^3.0.1",
+    "typescript": "^3.5.2"
   }
 }
